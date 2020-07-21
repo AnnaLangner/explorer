@@ -16,7 +16,7 @@ def create_driver(name):
     driver = webdriver.Chrome(executable_path="bin/chromedriver")
   else:
     driver = webdriver.Firefox(executable_path="bin/geckodriver.exe")
-  return(driver)
+  return driver
 
 
 def main():  
