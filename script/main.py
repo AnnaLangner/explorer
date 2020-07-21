@@ -8,7 +8,7 @@ def fetch_argument():
   parser.add_argument('--driver', help='entry driver')
   parser.add_argument("url", help="entry page url")
   args = parser.parse_args()     
-  return(args.driver, args.url)
+  return args.driver, args.url
 
 
 def create_driver(name):
@@ -20,8 +20,8 @@ def create_driver(name):
 
 
 def main():  
-  (driver, url) = fetch_argument()
-  (driver) = create_driver(driver)
+  driver, url = fetch_argument()
+  driver = create_driver(driver)
   driver.get(url)
   driver.close()
 
