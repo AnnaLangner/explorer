@@ -19,10 +19,18 @@ def create_driver(name):
   return driver
 
 
+def list_of_all_links(driver):
+  links_elem = driver.find_elements_by_tag_name("a")
+  for value in links_elem:
+    link_value = value.get_attribute('href')
+    print("name: " + value.text + ", target location: " + link_value)
+
+
 def main():  
   driver, url = fetch_argument()
   driver = create_driver(driver)
   driver.get(url)
+  list_of_all_links(driver)
   driver.close()
 
 main()
