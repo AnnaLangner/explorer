@@ -25,8 +25,7 @@ def list_of_all_links(driver):
 
 
 def print_list_of_all_links(driver):
-  links_elem = driver.find_elements_by_tag_name("a")
-  for value in links_elem:
+  for value in list_of_all_links(driver):
     link_value = value.get_attribute('href')    
     print("name: " + value.text + ", target location: " + link_value)
 
