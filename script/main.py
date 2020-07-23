@@ -24,8 +24,8 @@ def list_of_all_links(driver):
   return links_elem  
 
 
-def print_list_of_all_links(driver):
-  for value in list_of_all_links(driver):
+def print_list_of_all_links(links_elem):
+  for value in links_elem:
     link_value = value.get_attribute('href')    
     print("name: " + value.text + ", target location: " + link_value)
 
@@ -34,8 +34,8 @@ def main():
   driver, url = fetch_argument()
   driver = create_driver(driver)
   driver.get(url)
-  list_of_all_links(driver)
-  print_list_of_all_links(driver)
+  links_elem = list_of_all_links(driver)
+  print_list_of_all_links(links_elem)
   driver.close()
 
 main()
