@@ -1,6 +1,10 @@
 import argparse
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from collections import namedtuple
+
+
+LinkInfo  = namedtuple('LinkInfo', 'name href')
 
 
 def fetch_argument():
@@ -19,23 +23,23 @@ def create_driver(name):
   return driver
 
 
-def list_of_all_links(driver):
-  links_elem = driver.find_elements_by_tag_name("a")
-  return links_elem  
+def find_links(driver):  
+  links_elem = driver.find_elements_by_tag_name("a")    
+  return [LinkInfo(elem.text, elem.get_attribute('href')) for elem in links_elem]
 
 
-def print_list_of_all_links(links_elem):
-  for value in links_elem:
-    link_value = value.get_attribute('href')    
-    print("name: " + value.text + ", target location: " + link_value)
+def print_link_info(links):
+  for value in links:    
+    print(value.name, value.href)
 
 
 def main():  
   driver, url = fetch_argument()
   driver = create_driver(driver)
   driver.get(url)
-  links_elem = list_of_all_links(driver)
-  print_list_of_all_links(links_elem)
+  links = find_links(driver)
+  print_link_info(links)
   driver.close()
+
 
 main()
