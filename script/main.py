@@ -25,7 +25,7 @@ def create_driver(name):
 
 def find_links(driver):  
   links_elem = driver.find_elements_by_tag_name("a")    
-  return [LinkInfo(name, name.get_attribute('href')) for name in links_elem]
+  return [LinkInfo(elem.text, elem.get_attribute('href')) for elem in links_elem]
 
 
 def print_link_info(links):
