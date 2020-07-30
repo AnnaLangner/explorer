@@ -9,17 +9,19 @@ LinkInfo  = namedtuple('LinkInfo', 'name href')
 
 
 def test_find_links(driver):
-  find_links(driver)
-  if 'href' == None:
-    assert Error in find_links      
-  else:
-    assert "All tests done."
+  lists_of_tuples = find_links(driver)
+  for LinkInfo.href in lists_of_tuples:
+    if "href" == None:
+      assert Error in lists_of_tuples      
+    else:
+      assert "All tests done."  
+  return lists_of_tuples
 
 
 def test_count_links(links):
-  found_number_of_links = Counter(links)
-  expected_number_of_links = 90
-  assert found_number_of_links[1] == expected_number_of_links
+  found_number_of_links = len(links)
+  expected_number_of_links = 87
+  assert found_number_of_links == expected_number_of_links
 
 
 def top():  
