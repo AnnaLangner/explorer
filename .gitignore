@@ -28,3 +28,6 @@ venv/
 
 # idea
 .idea
+
+#.pytest_cache
+.pytest_cache
