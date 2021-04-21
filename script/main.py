@@ -28,18 +28,25 @@ def find_links(driver):
     return [elem.get_attribute('href') for elem in links_elem]
 
 
+def print_urls_info(urls):
+    for item in urls:
+        print(item)
+
+
 def main():
     driver, url, depth = fetch_argument()
     driver = create_driver(driver)
-    urls = [url]
+    urls = {url}
     for elem in range(depth + 1):
-        new_urls = []
+        new_urls = set()
         for url in urls:
             driver.get(url)
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'a')))
             links = find_links(driver)
-            new_urls.extend(links)
+            for item in links:
+                new_urls.add(item)
         urls = new_urls
+    print_urls_info(urls)
     driver.close()
 
 
