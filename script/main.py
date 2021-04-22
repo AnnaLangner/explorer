@@ -40,14 +40,14 @@ def main():
     driver = create_driver(driver)
     links_info = {LinkInfo(url, url)}
     for elem in range(depth + 1):
-        new_urls = set()
+        new_links_info = set()
         for link_info in links_info:
             driver.get(link_info[1])
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'a')))
             links = find_links(driver)
             for item in links:
-                new_urls.add((item[0], item[1]))
-        links_info = new_urls
+                new_links_info.add((item[0], item[1]))
+        links_info = new_links_info
         print_urls_info(links_info)
     driver.close()
 
