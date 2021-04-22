@@ -1,9 +1,11 @@
 import argparse
-
 from selenium import webdriver
+from collections import namedtuple
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+
+LinkInfo = namedtuple('LinkInfo', 'name href')
 
 
 def fetch_argument():
@@ -25,28 +27,28 @@ def create_driver(name):
 
 def find_links(driver):
     links_elem = driver.find_elements_by_tag_name("a")
-    return [elem.get_attribute('href') for elem in links_elem]
+    return [LinkInfo(elem.text, elem.get_attribute('href')) for elem in links_elem]
 
 
 def print_urls_info(urls):
     for item in urls:
-        print(item)
+        print(item[0], item[1])
 
 
 def main():
     driver, url, depth = fetch_argument()
     driver = create_driver(driver)
-    urls = {url}
+    links_info = {LinkInfo(url, url)}
     for elem in range(depth + 1):
         new_urls = set()
-        for url in urls:
-            driver.get(url)
+        for link_info in links_info:
+            driver.get(link_info[1])
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'a')))
             links = find_links(driver)
             for item in links:
-                new_urls.add(item)
-        urls = new_urls
-    print_urls_info(urls)
+                new_urls.add((item[0], item[1]))
+        links_info = new_urls
+        print_urls_info(links_info)
     driver.close()
 
 
