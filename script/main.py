@@ -30,8 +30,8 @@ def find_links(driver):
     return [LinkInfo(elem.text, elem.get_attribute('href')) for elem in links_elem]
 
 
-def print_urls_info(urls):
-    for item in urls:
+def print_urls_info(links_info):
+    for item in links_info:
         print(item[0], item[1])
 
 
