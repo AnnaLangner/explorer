@@ -28,7 +28,6 @@ def find_attribute(input_elements):
     item_list = []
     for item in input_elements:
         attribute = item.get_attribute("placeholder")
-        print(attribute)
         item_list.append(attribute)
     return item_list
 
@@ -40,6 +39,10 @@ def find_search(attribute):
         search_pattern = pattern.search(elem)
         if search_pattern:
             search_elem.append(elem)
+    return search_elem
+
+
+def print_answer(search_elem):
     if search_elem:
         print('There is a search box on the page')
     else:
@@ -52,7 +55,8 @@ def main():
     driver.get(url)
     input_elements = find_input(driver)
     attribute = find_attribute(input_elements)
-    find_search(attribute)
+    search_elem = find_search(attribute)
+    print_answer(search_elem)
     driver.close()
 
 
